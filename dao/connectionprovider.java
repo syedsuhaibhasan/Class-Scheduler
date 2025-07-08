@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dao;
 
 import java.sql.Statement;
@@ -17,31 +21,19 @@ public class connectionprovider {
     public static Connection getCon(){
     try{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        // First connect to MySQL server without specifying database
-        Connection tempCon = DriverManager.getConnection(
-            DB_URL + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
-            DB_USERNAME,
-            DB_PASSWORD
-        );
-        
-        // Check if database exists, create it if it doesn't
-        if(!databaseexists(tempCon, DB_NAME)){
-            createDatabase(tempCon, DB_NAME);
-        }
-        tempCon.close();
-        
-        // Now connect to the specific database
+        String params = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         Connection con = DriverManager.getConnection(
-            DB_URL + DB_NAME + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
-            DB_USERNAME,
-            DB_PASSWORD
+        DB_URL + DB_NAME + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+        DB_USERNAME,
+        DB_PASSWORD
         );
-        
+
+        if(!databaseexists(con, DB_NAME)){
+        createDatabase(con, DB_NAME);}
+        con = DriverManager.getConnection(DB_URL+DB_NAME+"?useSSL=false",DB_USERNAME,DB_PASSWORD);
         return con;
            }catch(Exception ex){
               System.err.println("Error in getCon(): " + ex.getMessage());
-              ex.printStackTrace();
         return null;
     }
 }
