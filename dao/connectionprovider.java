@@ -21,12 +21,7 @@ public class connectionprovider {
     public static Connection getCon(){
     try{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String params = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        Connection con = DriverManager.getConnection(
-        DB_URL + DB_NAME + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
-        DB_USERNAME,
-        DB_PASSWORD
-        );
+        Connection con = DriverManager.getConnection(DB_URL + "?useSSL=false", DB_USERNAME, DB_PASSWORD);
 
         if(!databaseexists(con, DB_NAME)){
         createDatabase(con, DB_NAME);}
