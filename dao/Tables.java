@@ -12,30 +12,15 @@ public class Tables {
     public static void main(String [] args){
         Connection con = null;
         Statement st = null;
-        try{
-        con = connectionprovider.getCon();
-        st = con.createStatement();
         
-        if(!tableExists(st,"studentdetails")){
-          
-        
-        }
-        if(!tableExists(st,"facultydetails")){
-        
-        }
-        JOptionPane.showMessageDialog(null,"Tables Check/Created Successfully");
-        }catch(Exception ex){
+        try
+        {
+            con = connectionprovider.getCon();
+        }catch(Exception ex)
+        {
             JOptionPane.showMessageDialog(null, ex);
         }finally{
-            try{
-            if(con!=null){
-            con.close();
-            }
-            if(st!=null){
-            st.close();
-            }
-            }catch(Exception ex ){
-            }
+        
         }
     }
       
@@ -44,4 +29,3 @@ public class Tables {
     return resultSet.next();
     }
 }
-
